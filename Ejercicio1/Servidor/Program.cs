@@ -7,6 +7,7 @@ using System.Threading;
 using NetworkStreamNS;
 using VehiculoClass;
 using CarreteraClass;
+using System.Collections.Generic;
 
 namespace Servidor
 {
@@ -15,6 +16,8 @@ namespace Servidor
         // Contador para asignar ID único a cada vehículo
         private static int IDCounter = 0;
         private static readonly object lockObj = new object(); // Objeto para sincronización
+        private static List<Cliente> clientesConectados = new List<Cliente>();
+
 
         static void Main(string[] args)
         {
@@ -65,7 +68,14 @@ namespace Servidor
                 if (confirmacion == vehiculo.Id.ToString())
                 {
                     Console.WriteLine("Cliente ha confirmado el ID correctamente.");
-                    // Iniciar la ejecución del cliente (procesos posteriores)
+
+                    // Añadir cliente a la lista de clientes conectados
+                    Cliente nuevoCliente = new Cliente(vehiculo.Id, stream);
+                    lock (lockObj)
+                    {
+                        clientesConectados.Add(nuevoCliente);
+                        Console.WriteLine($"Clientes conectados: {clientesConectados.Count}");
+                    }
                 }
                 else
                 {
