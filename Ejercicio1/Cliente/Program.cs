@@ -29,7 +29,7 @@ namespace Client
             // Leer los datos enviados por el servidor
             byte[] datos = new byte[256];
             int bytesLeidos = stream.Read(datos, 0, datos.Length);
-            string mensaje = Encoding.ASCII.GetString(datos, 0, bytesLeidos);
+            string mensaje = Encoding.UTF8.GetString(datos, 0, bytesLeidos);
 
             // Mostrar el mensaje recibido
             Console.WriteLine($"Mensaje del servidor: {mensaje}");
