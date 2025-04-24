@@ -17,7 +17,7 @@ namespace Servidor
         private static int IDCounter = 0;
         private static readonly object lockObj = new object(); // Objeto para sincronización
         private static List<Cliente> clientesConectados = new List<Cliente>();
-
+        private static List<Vehiculo> vehiculosEnCarretera = new List<Vehiculo>(); // Lista de vehículos en la carretera
 
         static void Main(string[] args)
         {
@@ -76,6 +76,20 @@ namespace Servidor
                         clientesConectados.Add(nuevoCliente);
                         Console.WriteLine($"Clientes conectados: {clientesConectados.Count}");
                     }
+
+                    // Recibir el vehículo del cliente
+                    Vehiculo vehiculoRecibido = NetworkStreamClass.LeerVehiculoNetworkStream(stream);
+                    Console.WriteLine($"Vehículo recibido: {vehiculoRecibido.Id}");
+
+                    // Añadir el vehículo a la carretera
+                    lock (lockObj)
+                    {
+                        vehiculosEnCarretera.Add(vehiculoRecibido);
+                        Console.WriteLine("Vehículo añadido a la carretera.");
+                    }
+
+                    // Mostrar los vehículos en la carretera
+                    MostrarVehiculosEnCarretera();
                 }
                 else
                 {
@@ -103,6 +117,16 @@ namespace Servidor
             nuevoVehiculo.Direccion = rand.Next(2) == 0 ? "Norte" : "Sur";
 
             return nuevoVehiculo;
+        }
+
+        // Método para mostrar los vehículos en la carretera
+        private static void MostrarVehiculosEnCarretera()
+        {
+            Console.WriteLine("Vehículos en la carretera:");
+            foreach (var vehiculo in vehiculosEnCarretera)
+            {
+                Console.WriteLine($"ID: {vehiculo.Id}, Dirección: {vehiculo.Direccion}");
+            }
         }
     }
 }
