@@ -42,3 +42,4 @@ C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejer
 C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio1\Servidor\obj\Debug\net8.0\Servidor.pdb
 C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio1\Servidor\obj\Debug\net8.0\Servidor.genruntimeconfig.cache
 C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio1\Servidor\obj\Debug\net8.0\ref\Servidor.dll
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio1\Servidor\obj\Debug\net8.0\Servidor.sourcelink.json

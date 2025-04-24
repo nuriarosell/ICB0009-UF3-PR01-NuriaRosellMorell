@@ -13,3 +13,4 @@ C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejer
 C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio1\Carretera\obj\Debug\net8.0\refint\Carretera.dll
 C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio1\Carretera\obj\Debug\net8.0\Carretera.pdb
 C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio1\Carretera\obj\Debug\net8.0\ref\Carretera.dll
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio1\Carretera\obj\Debug\net8.0\Carretera.sourcelink.json
