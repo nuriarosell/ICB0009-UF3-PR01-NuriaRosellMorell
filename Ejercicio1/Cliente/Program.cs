@@ -1,43 +1,38 @@
 ﻿using System;
 using System.Net.Sockets;
-using System.Net;
 using System.Text;
 using System.IO;
 using System.Threading;
 using NetworkStreamNS;
-using CarreteraClass;
 using VehiculoClass;
+using CarreteraClass;
 
-namespace Client
+namespace Cliente
 {
     class Program
     {
-
         static void Main(string[] args)
         {
-            // Definir la dirección IP del servidor y el puerto
+            // Definir la IP y el puerto del servidor
             string direccionIP = "127.0.0.1"; // localhost
             int puerto = 5000;
 
-            // Crear un objeto TcpClient y conectarse al servidor
+            // Crear un TcpClient para conectarse al servidor
             TcpClient cliente = new TcpClient(direccionIP, puerto);
-            Console.WriteLine("Conectado al servidor.");
-
-            // Obtener el flujo de datos del servidor
             NetworkStream stream = cliente.GetStream();
 
-            // Leer los datos enviados por el servidor
-            byte[] datos = new byte[256];
-            int bytesLeidos = stream.Read(datos, 0, datos.Length);
-            string mensaje = Encoding.UTF8.GetString(datos, 0, bytesLeidos);
+            // Iniciar el handshake enviando el mensaje "INICIO"
+            NetworkStreamClass.EscribirMensajeNetworkStream(stream, "INICIO");
 
-            // Mostrar el mensaje recibido
-            Console.WriteLine($"Mensaje del servidor: {mensaje}");
+            // Leer el ID asignado por el servidor
+            string idRecibido = NetworkStreamClass.LeerMensajeNetworkStream(stream);
+            Console.WriteLine($"ID recibido del servidor: {idRecibido}");
 
-            // Cerrar la conexión
+            // Confirmar el ID enviado al servidor
+            NetworkStreamClass.EscribirMensajeNetworkStream(stream, idRecibido);
+
+            // Cerrar la conexión con el servidor
             cliente.Close();
-
         }
-
     }
 }

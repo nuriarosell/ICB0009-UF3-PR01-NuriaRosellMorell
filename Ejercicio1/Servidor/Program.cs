@@ -5,8 +5,8 @@ using System.Text;
 using System.IO;
 using System.Threading;
 using NetworkStreamNS;
-using CarreteraClass;
 using VehiculoClass;
+using CarreteraClass;
 
 namespace Servidor
 {
@@ -17,7 +17,7 @@ namespace Servidor
         private static readonly object lockObj = new object(); // Objeto para sincronización
 
         static void Main(string[] args)
-        {      
+        {
             // Definir el puerto y la dirección IP
             int puerto = 5000;
             string direccionIP = "127.0.0.1"; // localhost
@@ -46,18 +46,33 @@ namespace Servidor
         {
             // Obtener el flujo de datos del cliente
             NetworkStream stream = cliente.GetStream();
-                
-            // Asignar un ID único y una dirección aleatoria
-            Vehiculo vehiculo = AsignarIDYDireccion();
 
-            // Enviar el mensaje con la información del vehículo
-            string mensaje = $"Vehículo ID: {vehiculo.Id}, Dirección: {vehiculo.Direccion}";
-            byte[] datos = Encoding.UTF8.GetBytes(mensaje);
-            stream.Write(datos, 0, datos.Length);
-            
-            // Mostrar en consola el ID asignado
-            Console.WriteLine($"Gestionando nuevo vehículo... ID: {vehiculo.Id}, Dirección: {vehiculo.Direccion}");
-                
+            // Leer mensaje de inicio
+            string mensajeInicio = NetworkStreamClass.LeerMensajeNetworkStream(stream);
+
+            // Mostrar el mensaje recibido en la consola del servidor
+            Console.WriteLine($"Mensaje recibido del cliente: {mensajeInicio}");
+            if (mensajeInicio == "INICIO")
+            {
+                // Asignar un ID único y una dirección aleatoria
+                Vehiculo vehiculo = AsignarIDYDireccion();
+
+                // Enviar el ID al cliente
+                NetworkStreamClass.EscribirMensajeNetworkStream(stream, vehiculo.Id.ToString());
+
+                // Leer la confirmación del ID por parte del cliente
+                string confirmacion = NetworkStreamClass.LeerMensajeNetworkStream(stream);
+                if (confirmacion == vehiculo.Id.ToString())
+                {
+                    Console.WriteLine("Cliente ha confirmado el ID correctamente.");
+                    // Iniciar la ejecución del cliente (procesos posteriores)
+                }
+                else
+                {
+                    Console.WriteLine("Error: El cliente no ha confirmado correctamente el ID.");
+                }
+            }
+
             // Cerrar la conexión con el cliente
             cliente.Close();
         }
