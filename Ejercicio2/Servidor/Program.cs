@@ -96,6 +96,10 @@ namespace Servidor
                     Console.WriteLine("Error: El cliente no ha confirmado correctamente el ID.");
                 }
             }
+            else
+            {
+                Console.WriteLine("Error: El mensaje de inicio no es válido.");
+            }
 
             // Cerrar la conexión con el cliente
             cliente.Close();

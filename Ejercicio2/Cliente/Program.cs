@@ -27,15 +27,19 @@ namespace Cliente
             string idRecibido = NetworkStreamClass.LeerMensajeNetworkStream(stream);
             Console.WriteLine($"ID recibido del servidor: {idRecibido}");
 
+            // Enviar una confirmación al servidor de que hemos recibido el ID
+            NetworkStreamClass.EscribirMensajeNetworkStream(stream, idRecibido); // Confirmación de ID
+
             // Crear un nuevo vehículo
             Vehiculo nuevoVehiculo = new Vehiculo();
+            nuevoVehiculo.Id = int.Parse(idRecibido); // Asignar el ID recibido al vehículo
             Console.WriteLine($"Nuevo vehículo creado con ID: {nuevoVehiculo.Id}");
 
             // Enviar el vehículo al servidor
-            NetworkStreamClass.EscribirDatosVehiculoNS(stream, nuevoVehiculo);
+            NetworkStreamClass.EscribirVehiculoNetworkStream(stream, nuevoVehiculo);
             Console.WriteLine("Vehículo enviado al servidor.");
 
-            // Confirmar al servidor que el vehículo fue enviado (se puede enviar algún tipo de mensaje de confirmación si es necesario)
+            // Confirmar al servidor que el vehículo fue enviado
             string confirmacion = NetworkStreamClass.LeerMensajeNetworkStream(stream);
             Console.WriteLine($"Confirmación del servidor: {confirmacion}");
 
