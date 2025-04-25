@@ -21,3 +21,15 @@ C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejer
 C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio1\Vehiculo\obj\Debug\net8.0\Vehiculo.pdb
 C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio1\Vehiculo\obj\Debug\net8.0\ref\Vehiculo.dll
 C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio1\Vehiculo\obj\Debug\net8.0\Vehiculo.sourcelink.json
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio2\Vehiculo\bin\Debug\net8.0\Vehiculo.deps.json
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio2\Vehiculo\bin\Debug\net8.0\Vehiculo.dll
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio2\Vehiculo\bin\Debug\net8.0\Vehiculo.pdb
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio2\Vehiculo\obj\Debug\net8.0\Vehiculo.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio2\Vehiculo\obj\Debug\net8.0\Vehiculo.AssemblyInfoInputs.cache
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio2\Vehiculo\obj\Debug\net8.0\Vehiculo.AssemblyInfo.cs
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio2\Vehiculo\obj\Debug\net8.0\Vehiculo.csproj.CoreCompileInputs.cache
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio2\Vehiculo\obj\Debug\net8.0\Vehiculo.sourcelink.json
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio2\Vehiculo\obj\Debug\net8.0\Vehiculo.dll
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio2\Vehiculo\obj\Debug\net8.0\refint\Vehiculo.dll
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio2\Vehiculo\obj\Debug\net8.0\Vehiculo.pdb
+C:\Users\nuria\SynologyDrive\DAM - Salle\ICB0009-UF3-PR01-NuriaRosellMorell\Ejercicio2\Vehiculo\obj\Debug\net8.0\ref\Vehiculo.dll

@@ -71,11 +71,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio1\\Servidor\\Servidor.csproj",
+      "projectUniqueName": "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio2\\Servidor\\Servidor.csproj",
       "projectName": "Servidor",
-      "projectPath": "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio1\\Servidor\\Servidor.csproj",
+      "projectPath": "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio2\\Servidor\\Servidor.csproj",
       "packagesPath": "C:\\Users\\nuria\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio1\\Servidor\\obj\\",
+      "outputPath": "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio2\\Servidor\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\nuria\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -92,14 +92,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio1\\Carretera\\Carretera.csproj": {
-              "projectPath": "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio1\\Carretera\\Carretera.csproj"
+            "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio2\\Carretera\\Carretera.csproj": {
+              "projectPath": "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio2\\Carretera\\Carretera.csproj"
             },
-            "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio1\\NetworkStreamClass\\NetworkStreamClass.csproj": {
-              "projectPath": "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio1\\NetworkStreamClass\\NetworkStreamClass.csproj"
+            "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio2\\NetworkStreamClass\\NetworkStreamClass.csproj": {
+              "projectPath": "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio2\\NetworkStreamClass\\NetworkStreamClass.csproj"
             },
-            "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio1\\Vehiculo\\Vehiculo.csproj": {
-              "projectPath": "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio1\\Vehiculo\\Vehiculo.csproj"
+            "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio2\\Vehiculo\\Vehiculo.csproj": {
+              "projectPath": "C:\\Users\\nuria\\SynologyDrive\\DAM - Salle\\ICB0009-UF3-PR01-NuriaRosellMorell\\Ejercicio2\\Vehiculo\\Vehiculo.csproj"
             }
           }
         }
