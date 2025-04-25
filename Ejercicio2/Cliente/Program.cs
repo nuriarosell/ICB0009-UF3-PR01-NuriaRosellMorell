@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Net.Sockets;
-using System.Text;
-using System.IO;
 using NetworkStreamNS;
 using VehiculoClass;
-using CarreteraClass;
+using System.Threading;
 
 namespace Cliente
 {
@@ -23,25 +21,46 @@ namespace Cliente
             // Iniciar el handshake enviando el mensaje "INICIO"
             NetworkStreamClass.EscribirMensajeNetworkStream(stream, "INICIO");
 
-            // Leer el ID asignado por el servidor (sería un ID del vehículo o alguna identificación generada por el servidor)
+            // Leer el ID asignado por el servidor (ID del vehículo)
             string idRecibido = NetworkStreamClass.LeerMensajeNetworkStream(stream);
             Console.WriteLine($"ID recibido del servidor: {idRecibido}");
 
             // Enviar una confirmación al servidor de que hemos recibido el ID
-            NetworkStreamClass.EscribirMensajeNetworkStream(stream, idRecibido); // Confirmación de ID
+            NetworkStreamClass.EscribirMensajeNetworkStream(stream, "ID recibido");
 
-            // Crear un nuevo vehículo
-            Vehiculo nuevoVehiculo = new Vehiculo();
-            nuevoVehiculo.Id = int.Parse(idRecibido); // Asignar el ID recibido al vehículo
-            Console.WriteLine($"Nuevo vehículo creado con ID: {nuevoVehiculo.Id}");
+            // Crear un nuevo vehículo con el ID recibido
+            Vehiculo nuevoVehiculo = new Vehiculo
+            {
+                Id = int.Parse(idRecibido), // Asignar el ID recibido al vehículo
+                Direccion = "Norte", // Asignar una dirección específica
+                Pos = 0, // Iniciar la posición en 0
+                Velocidad = 10, // Velocidad de avance, puedes ajustar este valor
+                Acabado = false // El vehículo no ha terminado aún
+            };
+            Console.WriteLine($"Nuevo vehículo creado con ID: {nuevoVehiculo.Id}, Dirección: {nuevoVehiculo.Direccion}");
 
-            // Enviar el vehículo al servidor
-            NetworkStreamClass.EscribirVehiculoNetworkStream(stream, nuevoVehiculo);
-            Console.WriteLine("Vehículo enviado al servidor.");
+            // Bucle de avance del vehículo
+            for (int i = 0; i <= 100; i++)
+            {
+                // Actualizar la posición del vehículo
+                nuevoVehiculo.Pos = i;
+                // Enviar el vehículo actualizado al servidor
+                NetworkStreamClass.EscribirVehiculoNetworkStream(stream, nuevoVehiculo);
+                Console.WriteLine($"Vehículo en la posición: {nuevoVehiculo.Pos}");
 
-            // Confirmar al servidor que el vehículo fue enviado
-            string confirmacion = NetworkStreamClass.LeerMensajeNetworkStream(stream);
-            Console.WriteLine($"Confirmación del servidor: {confirmacion}");
+                // Pausa para simular la velocidad del vehículo
+                Thread.Sleep(nuevoVehiculo.Velocidad);
+
+                // Si el vehículo ha llegado al final
+                if (nuevoVehiculo.Pos == 100)
+                {
+                    nuevoVehiculo.Acabado = true;
+                    break;
+                }
+            }
+
+            // Enviar mensaje final de que el vehículo ha acabado
+            NetworkStreamClass.EscribirMensajeNetworkStream(stream, "Vehículo terminado");
 
             // Cerrar la conexión con el servidor
             cliente.Close();

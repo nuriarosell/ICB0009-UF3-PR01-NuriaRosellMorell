@@ -6,26 +6,21 @@ using System.IO;
 using System.Threading;
 using NetworkStreamNS;
 using VehiculoClass;
-using CarreteraClass;
 using System.Collections.Generic;
 
 namespace Servidor
 {
     class Program
     {
-        // Contador para asignar ID único a cada vehículo
-        private static int IDCounter = 0;
-        private static readonly object lockObj = new object(); // Objeto para sincronización
-        private static List<Cliente> clientesConectados = new List<Cliente>();
-        private static List<Vehiculo> vehiculosEnCarretera = new List<Vehiculo>(); // Lista de vehículos en la carretera
+        private static readonly object lockObj = new object();
+        private static List<Vehiculo> vehiculosEnCarretera = new List<Vehiculo>();
 
         static void Main(string[] args)
         {
-            // Definir el puerto y la dirección IP
             int puerto = 5000;
             string direccionIP = "127.0.0.1"; // localhost
 
-            // Crear un objeto de TcpListener que escuche en la dirección IP y el puerto
+            // Crear un TcpListener para aceptar conexiones de los clientes
             TcpListener servidor = new TcpListener(IPAddress.Parse(direccionIP), puerto);
             servidor.Start();
 
@@ -34,102 +29,84 @@ namespace Servidor
             // Aceptar conexiones de clientes
             while (true)
             {
-                // Aceptar la conexión de un cliente
                 TcpClient cliente = servidor.AcceptTcpClient();
                 Console.WriteLine("Cliente conectado.");
 
-                // Crear un nuevo hilo para gestionar el cliente
+                // Crear un hilo para gestionar al cliente
                 Thread clienteThread = new Thread(() => GestionarCliente(cliente));
                 clienteThread.Start();
             }
         }
 
-        // Método para gestionar cada cliente
         private static void GestionarCliente(TcpClient cliente)
         {
-            // Obtener el flujo de datos del cliente
             NetworkStream stream = cliente.GetStream();
 
-            // Leer mensaje de inicio
+            // Leer el mensaje inicial de "INICIO"
             string mensajeInicio = NetworkStreamClass.LeerMensajeNetworkStream(stream);
-
-            // Mostrar el mensaje recibido en la consola del servidor
             Console.WriteLine($"Mensaje recibido del cliente: {mensajeInicio}");
+
             if (mensajeInicio == "INICIO")
             {
-                // Asignar un ID único y una dirección aleatoria
-                Vehiculo vehiculo = AsignarIDYDireccion();
+                // Asignar un ID y una dirección aleatoria
+                Vehiculo vehiculo = new Vehiculo
+                {
+                    Id = new Random().Next(1, 1000), // ID aleatorio para el ejemplo
+                    Direccion = "Norte" // Dirección aleatoria
+                };
 
                 // Enviar el ID al cliente
                 NetworkStreamClass.EscribirMensajeNetworkStream(stream, vehiculo.Id.ToString());
 
-                // Leer la confirmación del ID por parte del cliente
+                // Leer la confirmación del cliente
                 string confirmacion = NetworkStreamClass.LeerMensajeNetworkStream(stream);
-                if (confirmacion == vehiculo.Id.ToString())
+                if (confirmacion == "ID recibido")
                 {
                     Console.WriteLine("Cliente ha confirmado el ID correctamente.");
 
-                    // Añadir cliente a la lista de clientes conectados
-                    Cliente nuevoCliente = new Cliente(vehiculo.Id, stream);
+                    // Agregar el vehículo a la carretera
                     lock (lockObj)
                     {
-                        clientesConectados.Add(nuevoCliente);
-                        Console.WriteLine($"Clientes conectados: {clientesConectados.Count}");
+                        vehiculosEnCarretera.Add(vehiculo);
                     }
 
-                    // Recibir el vehículo del cliente
-                    Vehiculo vehiculoRecibido = NetworkStreamClass.LeerVehiculoNetworkStream(stream);
-                    Console.WriteLine($"Vehículo recibido: {vehiculoRecibido.Id}");
-
-                    // Añadir el vehículo a la carretera
-                    lock (lockObj)
+                    // Bucle para actualizar el vehículo en la carretera
+                    while (true)
                     {
-                        vehiculosEnCarretera.Add(vehiculoRecibido);
-                        Console.WriteLine("Vehículo añadido a la carretera.");
-                    }
+                        // Leer el vehículo actualizado desde el cliente
+                        Vehiculo vehiculoActualizado = NetworkStreamClass.LeerVehiculoNetworkStream(stream);
+                        if (vehiculoActualizado.Acabado)
+                        {
+                            Console.WriteLine($"Vehículo {vehiculoActualizado.Id} ha terminado su recorrido.");
+                            break;
+                        }
 
-                    // Mostrar los vehículos en la carretera
-                    MostrarVehiculosEnCarretera();
+                        // Actualizar el vehículo en la carretera
+                        lock (lockObj)
+                        {
+                            var vehiculoExistente = vehiculosEnCarretera.Find(v => v.Id == vehiculoActualizado.Id);
+                            if (vehiculoExistente != null)
+                            {
+                                vehiculoExistente.Pos = vehiculoActualizado.Pos;
+                            }
+                        }
+
+                        // Mostrar la lista de vehículos en la carretera
+                        MostrarVehiculosEnCarretera();
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("Error: El cliente no ha confirmado correctamente el ID.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Error: El mensaje de inicio no es válido.");
             }
 
             // Cerrar la conexión con el cliente
             cliente.Close();
         }
 
-        // Método para asignar un ID único y una dirección aleatoria
-        private static Vehiculo AsignarIDYDireccion()
-        {
-            Vehiculo nuevoVehiculo = new Vehiculo();
-
-            // Bloquear la sección crítica para asegurar que el ID se asigna correctamente
-            lock (lockObj)
-            {
-                nuevoVehiculo.Id = IDCounter++;
-            }
-
-            // Asignar dirección aleatoria
-            Random rand = new Random();
-            nuevoVehiculo.Direccion = rand.Next(2) == 0 ? "Norte" : "Sur";
-
-            return nuevoVehiculo;
-        }
-
-        // Método para mostrar los vehículos en la carretera
         private static void MostrarVehiculosEnCarretera()
         {
             Console.WriteLine("Vehículos en la carretera:");
             foreach (var vehiculo in vehiculosEnCarretera)
             {
-                Console.WriteLine($"ID: {vehiculo.Id}, Dirección: {vehiculo.Direccion}");
+                Console.WriteLine($"ID: {vehiculo.Id}, Dirección: {vehiculo.Direccion}, Posición: {vehiculo.Pos}");
             }
         }
     }
