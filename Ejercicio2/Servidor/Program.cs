@@ -6,7 +6,10 @@ using System.IO;
 using System.Threading;
 using NetworkStreamNS;
 using VehiculoClass;
+using System.Text.Json;
 using System.Collections.Generic;
+using CarreteraClass; 
+
 
 namespace Servidor
 {
@@ -14,6 +17,7 @@ namespace Servidor
     {
         private static readonly object lockObj = new object();
         private static List<Vehiculo> vehiculosEnCarretera = new List<Vehiculo>();
+        private static List<NetworkStream> clientesConectados = new List<NetworkStream>();
 
         static void Main(string[] args)
         {
@@ -41,6 +45,11 @@ namespace Servidor
         private static void GestionarCliente(TcpClient cliente)
         {
             NetworkStream stream = cliente.GetStream();
+
+            lock (lockObj)
+            {
+                clientesConectados.Add(stream); // Añadir el cliente a la lista de conectados
+            }
 
             // Leer el mensaje inicial de "INICIO"
             string mensajeInicio = NetworkStreamClass.LeerMensajeNetworkStream(stream);
@@ -91,6 +100,9 @@ namespace Servidor
                             }
                         }
 
+                        // Enviar la lista de vehículos a todos los clientes
+                        EnviarDatosACadaCliente();
+
                         // Mostrar la lista de vehículos en la carretera
                         MostrarVehiculosEnCarretera();
                     }
@@ -98,7 +110,33 @@ namespace Servidor
             }
 
             // Cerrar la conexión con el cliente
+            lock (lockObj)
+            {
+                clientesConectados.Remove(stream); // Eliminar al cliente de la lista al cerrar la conexión
+            }
             cliente.Close();
+        }
+
+        private static void EnviarDatosACadaCliente()
+        {
+            // Serializa la lista de vehículos en un formato JSON
+            string carreteraJson = JsonSerializer.Serialize(vehiculosEnCarretera);
+
+            lock (lockObj)
+            {
+                foreach (var clienteStream in clientesConectados)
+                {
+                    try
+                    {
+                        // Enviar los datos de la carretera a cada cliente
+                        NetworkStreamClass.EscribirMensajeNetworkStream(clienteStream, carreteraJson);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error al enviar datos a un cliente: {ex.Message}");
+                    }
+                }
+            }
         }
 
         private static void MostrarVehiculosEnCarretera()

@@ -52,11 +52,11 @@ public class Carretera
 
     // Genera la barra gráfica de posición en pantalla
     private string GenerarBarraPosicion(int pos)
-    {
-        int total = 50;
-        int llenos = pos * total / 100;
-        int vacíos = total - llenos;
-        return new string('█', llenos) + new string('▒', vacíos);
+{
+    int total = 50;
+    int llenos = pos * total / 100;
+    int vacíos = total - llenos;
+    return new string('#', llenos) + new string('.', vacíos);
     }
 
     // Serializa el objeto Carretera a array de bytes usando XML
